@@ -12,9 +12,9 @@
     "coverage:test": "node ./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text npm run test",
     "tc:test": "node ./node_modules/mocha/bin/mocha --reporter mocha-teamcity-reporter -r ./node_modules/ts-node/register/index.js ./tests/**/*.spec.ts --exit",
     "nyc:test": "node ./node_modules/nyc/bin/nyc.js --reporter=html --reporter=teamcity npm run tc:test",
-    "lint": "node ./node_modules/eslint/bin/eslint.js ./src/**/*.ts ./index.ts",
-    "lint:fix": "node ./node_modules/eslint/bin/eslint.js --fix ./src/**/*.ts ./index.ts",
-    "statistics": "node ./node_modules/sloc/bin/sloc --defails --exclude spec.ts ./src"
+    "lint": "node ./node_modules/eslint/bin/eslint.js ./examples/**/*.ts ./common/**/*.ts",
+    "lint:fix": "node ./node_modules/eslint/bin/eslint.js --fix ./examples/**/*.ts ./common/**/*.ts",
+    "statistics": "node ./node_modules/sloc/bin/sloc --defails --exclude spec.ts ./examples/**/*.ts ./common/**/*.ts"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.com/"
@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/MRazvan/lib-intercept-example#readme",
   "devDependencies": {
+    "@types/body-parser": "^1.17.1",
     "@types/chai": "^4.2.0",
     "@types/ejs": "^3.0.0",
     "@types/eslint": "^6.1.0",
@@ -42,6 +43,7 @@
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.7.2",
     "@types/reflect-metadata": "^0.0.5",
+    "@types/serve-static": "^1.13.3",
     "@types/sinon": "^7.0.13",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
@@ -62,12 +64,19 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "@types/body-parser": "^1.17.1",
+    "@mrazvan/lib-http": "^1.1.0",
     "body-parser": "^1.19.0",
+    "class-validator": "^0.11.0",
+    "cli-table3": "^0.5.1",
+    "colors": "^1.4.0",
     "ejs": "^3.0.1",
     "glob": "^7.1.6",
-    "lib-intercept": "^1.0.1",
-    "lib-reflect": "^1.0.2",
-    "mime-types": "^2.1.26"
+    "inversify": "^5.0.1",
+    "lib-host": "^1.0.1",
+    "lib-intercept": "^1.1.0",
+    "lib-reflect": "^1.1.1",
+    "lodash": "^4.17.15",
+    "mime-types": "^2.1.26",
+    "serve-static": "^1.14.1"
   }
 }
