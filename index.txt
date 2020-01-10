@@ -1,0 +1,15 @@
+import { Container } from 'inversify';
+import { Host } from 'lib-host';
+import * as path from 'path';
+import { MVCConfigure } from './examples/mvc/lib/overrides/configure';
+import { HTTPFactory } from './src/http.factory';
+
+const host = new Host();
+host.addModule({
+  init: (container: Container) => {
+    HTTPFactory.create(container).configure(
+      MVCConfigure({ path: path.join(__dirname, '/examples/mvc') })
+    );
+  }
+});
+host.start();
