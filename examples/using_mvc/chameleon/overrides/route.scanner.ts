@@ -71,7 +71,7 @@ export class MVCRouteScanner extends ControllerScanner {
           // This parameter is already decorated with an attribute from the base http lib
           return;
         }
-        param.target = Object;
+        param.type = Object;
         m.tags[MVC_QUERY_OR_PARAM] = true;
         m.attributesData.push(new MVCParamDTO(param.name, param.idx));
       });

@@ -8,7 +8,7 @@ export class EmptyResult extends ActionResult {
   }
 
   public ExecuteResult(ctx: IHttpContext): void {
-    ctx.getResult().setSuccess(undefined);
+    ctx.setSuccess(undefined);
   }
 }
 

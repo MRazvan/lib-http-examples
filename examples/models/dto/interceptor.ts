@@ -17,9 +17,9 @@ export class ModelInterceptor implements IBeforeActivation {
     // Method parameters
     const anyWithModel = params.filter((p: ParameterData) => {
       // We don't have a target on the parameter (might be a method / parameter not decorated)
-      if (isNil(p.target)) return false;
+      if (isNil(p.type)) return false;
       // Check to see if we know anything about the target
-      const cd = ReflectHelper.getClass(p.target);
+      const cd = ReflectHelper.getClass(p.type);
       if (isNil(cd)) {
         // It is an object type not known to us (nothing decorated, no method, parameter, property or the class)
         return false;
@@ -41,9 +41,9 @@ export class ModelInterceptor implements IBeforeActivation {
     //    fast and dirty
     anyWithModel.forEach((paramData: ParameterData) => {
       // We could have a parent that has some properties, so get all the parents also
-      const cd = ReflectHelper.getClassWithParentsIncluded(paramData.target);
+      const cd = ReflectHelper.getClassWithParentsIncluded(paramData.type);
       // Create the object
-      const instance: any = Reflect.construct(paramData.target, []);
+      const instance: any = Reflect.construct(paramData.type, []);
       // Merge all properties from all classes and get only the properties that we can handle
       const props = flattenDeep(cd.map(c => c.properties)).filter(p => p.tags['Model'] === true);
       props.forEach((propData: PropertyData) => {

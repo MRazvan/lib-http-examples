@@ -38,7 +38,7 @@ export class FileResult extends ActionResult {
     } else {
       headers['Content-Disposition'] = `attachment`;
     }
-    response.setHeaders();
+    response.sendHeaders();
 
     // Pipe the file and wait for it to finish
     await new Promise((resolve, reject) => {

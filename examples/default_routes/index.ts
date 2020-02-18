@@ -4,7 +4,6 @@ import { Container } from 'inversify';
 import { Host } from 'lib-host';
 import { UseActivation } from 'lib-intercept';
 import * as serve from 'serve-static';
-import { RoutesDisplay } from '../../common/route.print';
 @Controller()
 export class DefaultHandlers {
   @DefaultRouteHandler()
@@ -20,8 +19,7 @@ new Host()
       HTTPFactory.create(container)
         // This will add support for @Query, @Body @Header and the rest
         .configure(ConfigureDefaultParamInterceptors)
-        .addModule(DynamicModule('Defaults', { controllers: [DefaultHandlers] }))
-        .onStarted(RoutesDisplay); // Display routes
+        .addModule(DynamicModule('Defaults', { controllers: [DefaultHandlers] }));
     }
   })
   .init({

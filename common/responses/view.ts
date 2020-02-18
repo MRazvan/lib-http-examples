@@ -33,7 +33,7 @@ export class ViewResult extends ActionResult {
         .get<LogFactory>(LogFactory)
         .createLog('ViewActionResult');
       log.error(`View '${this._path}' does not exist. Resolved to ${fullPath}`);
-      ctx.getResult().setError('Invalid view path.');
+      ctx.setError('Invalid view path.');
       return;
     }
     response.headers()['Content-Type'] = 'text/html';

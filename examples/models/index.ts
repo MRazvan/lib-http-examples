@@ -1,12 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {
-  CallbackMiddlewareWrapper,
-  Controller,
-  DynamicModule,
-  HttpContext,
-  HTTPFactory,
-  Post
-} from '@mrazvan/lib-http';
+import { CallbackMiddlewareWrapper, Controller, DynamicModule, HttpContext, HTTPFactory, Post } from '@mrazvan/lib-http';
 import * as CV from 'class-validator';
 import { Container } from 'inversify';
 import { Host } from 'lib-host';
@@ -23,7 +16,7 @@ class ClassValidator implements IBeforeActivation {
     // Again for simplicity do it sync
     const validations = flatten(ctx.getArguments().map(arg => CV.validateSync(arg)));
     if (validations.length) {
-      ctx.getResult().setError(validations);
+      ctx.setError(validations);
       return false;
     }
     return true;

@@ -1,13 +1,4 @@
-import {
-  ApiAttributeData,
-  ControllerAttributeData,
-  ControllerScanner,
-  HAS_BODY_PARAMS,
-  HAS_HEADER_PARAMS,
-  HAS_QUERY_PARAMS,
-  ParamDataDTO,
-  ParamSource
-} from '@mrazvan/lib-http';
+import { ApiAttributeData, ControllerAttributeData, ControllerScanner, ParamDataDTO, ParamSource, PARAMS_BODY, PARAMS_HEADER, PARAMS_QUERY } from '@mrazvan/lib-http';
 import { LogFactory } from 'lib-host';
 import { MethodData, ParameterData, ReflectHelper } from 'lib-reflect';
 import { head, isNil } from 'lodash';
@@ -80,19 +71,19 @@ export class ConventionRouteScanner extends ControllerScanner {
           // This parameter is already decorated with an attribute from the base http lib
           return;
         }
-        param.target = Object;
+        param.type = Object;
         if (param.name.startsWith('q_')) {
-          m.tags[HAS_QUERY_PARAMS] = true;
+          m.tags[PARAMS_QUERY] = true;
           m.attributesData.push(
             new ParamDataDTO({ idx: param.idx, name: param.name.substr(2), source: ParamSource.Query })
           );
         } else if (param.name.startsWith('h_')) {
-          m.tags[HAS_HEADER_PARAMS] = true;
+          m.tags[PARAMS_HEADER] = true;
           m.attributesData.push(
             new ParamDataDTO({ idx: param.idx, name: param.name.substr(2), source: ParamSource.Header })
           );
         } else if (param.name.startsWith('b_')) {
-          m.tags[HAS_BODY_PARAMS] = true;
+          m.tags[PARAMS_BODY] = true;
           m.attributesData.push(
             new ParamDataDTO({ idx: param.idx, name: param.name.substr(2), source: ParamSource.Body })
           );

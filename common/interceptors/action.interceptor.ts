@@ -4,18 +4,17 @@ import { ActionResult } from '../responses/action.result';
 
 export class ActionResultInterceptor implements IAfterActivation {
   public async after(context: IHttpContext): Promise<void> {
-    const response = context.getResult();
-    if (response.isError()) {
+    if (!context.isSuccess()) {
       return;
     }
-    let payload = response.payload;
+    let payload = context.payload;
     if (payload instanceof Promise) {
       payload = await payload;
     }
     if (payload instanceof ActionResult) {
       const executeResult = payload.ExecuteResult(context);
       if (executeResult instanceof Promise) {
-        context.getResult().setSuccess(executeResult);
+        context.setSuccess(executeResult);
       }
     }
   }

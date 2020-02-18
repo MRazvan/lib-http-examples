@@ -1,7 +1,7 @@
 import { IHttpServer } from '@mrazvan/lib-http';
 import { LogFactory } from 'lib-host';
 import { IActivation } from 'lib-intercept';
-import { filter } from 'lodash';
+import { filter, flatten } from 'lodash';
 import Table = require('cli-table3');
 import colors = require('colors');
 
@@ -26,7 +26,8 @@ function getReturnType(activation: IActivation): string {
 export function RoutesDisplay(server: IHttpServer): void {
   const routes: Route[] = [];
   const log = server.container.get<LogFactory>(LogFactory).createLog('RoutesDisplay');
-  server.applications.forEach(app => {
+  const apps = flatten(server.mountPoints.map(mp => mp.applications));
+  apps.forEach(app => {
     app.routes.forEach(route => {
       routes.push(
         new Route({
@@ -47,11 +48,13 @@ export function RoutesDisplay(server: IHttpServer): void {
     head: [],
     colWidths: [10, 50, 40, 20, 20]
   });
+  let host = server.runConfiguration.options.host ? server.runConfiguration.options.host : 'localhost';
+  if (host === '::') {
+    host = 'localhost';
+  }
   table.push([
     {
-      content: `API's Exposed by the server on : ${
-        server.runConfiguration.options.host ? server.runConfiguration.options.host : 'localhost'
-      }:${server.runConfiguration.options.port}`,
+      content: `API's Exposed by the server on : ${host}:${server.runConfiguration.options.port}`,
       colSpan: 5
     }
   ]);
