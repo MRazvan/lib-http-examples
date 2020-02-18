@@ -108,6 +108,7 @@ All arguments are retrieved in the following order, the key is the name of the a
 > POST /user/update?name=Test same as
 > 
 > POST /user/update  - body { name: 'Test' }
+
 If we have an 'Index' method, that will be the default handler for the controller.
 
 
